@@ -1,0 +1,16 @@
+.containerModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center; 
+    width: 100%; /* Para asegurarse de que el contenido tome el ancho completo del modal */
+    padding: 10px;
+  }
+
+h5 {
+
+font-weight: bold;
+
+}

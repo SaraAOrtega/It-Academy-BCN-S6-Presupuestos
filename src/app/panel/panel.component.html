@@ -1,0 +1,29 @@
+<section class="count container">
+  <div class="justify-content-end mt-5 d-flex align-items-center">
+    <button (click)= "openModalPages()"mat-icon-button class="my-1 pb-2">
+      <mat-icon>info</mat-icon>
+    </button>
+    <p class=" my-0">Number of pages</p>
+    <button mat-icon-button class="bordered-button" (click)="decrementPages()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <span class="count-value">{{ counterForm.get("counterPages")?.value }}</span>
+    <button mat-icon-button class="bordered-button" (click)="incrementPages()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div class="justify-content-end mt-5 d-flex align-items-center">
+    <button (click)= "openModalLanguages()"mat-icon-button class="my-1 pb-2">
+      <mat-icon>info</mat-icon>
+    </button>
+    <p class=" my-0">Number of languages</p>
+    <button mat-icon-button class="bordered-button" (click)="decrementLanguages()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <span class="count-value">{{ counterForm.get("counterLanguages")?.value }}</span>
+    <button mat-icon-button class="bordered-button" (click)="incrementLanguages()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</section>

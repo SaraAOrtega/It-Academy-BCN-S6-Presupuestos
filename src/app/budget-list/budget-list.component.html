@@ -1,0 +1,77 @@
+<section class="budget-list" [formGroup]="servicios">
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <!-- CONTENEDOR SEO -->
+      <div class="col-10 col-md-8 col-lg-7 shadow rounded-3 p-2 bg-light"
+           [ngClass]="{'selected-border': servicios.get('seo')?.value}">
+        <div class="row d-flex align-items-center justify-content-between">
+          <div class="col-5">
+            <h2>Seo</h2>
+            <p>Programación de una web responsive completa</p>
+          </div>
+          <div class="col-4">
+            <h2 class="fw-bold">300 €</h2>
+          </div>
+          <div class="col-2">
+            <mat-checkbox formControlName="seo">Add</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center mt-3">
+      <!-- CONTENEDOR ADS -->
+      <div class="col-10 col-md-8 col-lg-7 shadow rounded-3 p-2 bg-light"
+           [ngClass]="{'selected-border': servicios.get('ads')?.value}">
+        <div class="row d-flex align-items-center justify-content-between">
+          <div class="col-5">
+            <h2>Ads</h2>
+            <p>Programación de una web responsive completa</p>
+          </div>
+          <div class="col-4">
+            <h2 class="fw-bold">400 €</h2>
+          </div>
+          <div class="col-2">
+            <mat-checkbox formControlName="ads">Add</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center mt-3">
+       <!-- CONTENEDOR WEB -->
+
+      <div class="col-10 col-md-8 col-lg-7 shadow rounded-3 p-2 bg-light"
+           [ngClass]="{'selected-border': servicios.get('web')?.value}">
+        <div class="row d-flex align-items-center justify-content-between">
+          <div class="col-5">
+            <h2>Web</h2>
+            <p>Programación de una web responsive completa</p>
+          </div>
+          <div class="col-4">
+            <h2 class="fw-bold">500 €</h2>
+          </div>
+          <div class="col-2">
+            <mat-checkbox formControlName="web">Add</mat-checkbox>
+          </div>
+        </div>
+        <mat-expansion-panel [expanded]="servicios.get('web')?.value">
+        <app-panel></app-panel>
+        </mat-expansion-panel>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div
+        class="col-10 col-md-8 col-lg-7 d-flex align-items-center justify-content-end">
+        <div class="col-6">
+          <h3>Total cost:&nbsp;&nbsp;&nbsp;{{ total | currency:'EUR':'symbol' }}  </h3>
+        </div>
+    </div>
+  </div>
+</div>
+
+  </section>
+  

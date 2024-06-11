@@ -1,0 +1,10 @@
+
+  .selected-border {
+    border: 3px solid #77B0AA; /* Cambia el color y el grosor del borde según sea necesario */
+  }
+
+  mat-expansion-panel {
+    margin-top: 10px; /* Ajusta el margen superior del panel expandido */
+    background-color: #b0d2cf;
+  }
+  
