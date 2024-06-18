@@ -1,3 +1,4 @@
+import { BudgetService } from './../servicio/budget.service';
 import { ModalLanguagesComponent } from './../modals/modallanguages/modallanguages.component';
 import { ModalpagesComponent } from './../modals/modalpages/modalpages.component';
 import { Component } from '@angular/core';
@@ -5,7 +6,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-panel',
@@ -16,58 +17,70 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 })
 export class CounterPanelComponent {
   counterForm: FormGroup;
+ 
 
-  constructor(public fb: FormBuilder, public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public dialog: MatDialog, public budgetService: BudgetService) {
     this.counterForm = this.fb.group({
-      counterPages: [0, [Validators.min(0), Validators.max(10)]],
-      counterLanguages: [0, [Validators.min(0), Validators.max(10)]],
+      counterPages: [1, [Validators.min(0), Validators.max(10)]],
+      counterLanguages: [1, [Validators.min(0), Validators.max(10)]],
     });
-
+    this.actualizarPrecio();
   }
 
   incrementPages() {
-    const currentValue = this.counterForm.get('counterPages')?.value || 0;
+    const currentValue = this.counterForm.get('counterPages')?.value || 1;
     if (currentValue < 10) {  
       this.counterForm.get('counterPages')?.setValue(currentValue + 1);
+      this.actualizarPrecio();
     }
   }
 
   decrementPages() {
-    const currentValue = this.counterForm.get('counterPages')?.value || 0;
+    const currentValue = this.counterForm.get('counterPages')?.value || 1;
     if (currentValue > 0) {
       this.counterForm.get('counterPages')?.setValue(currentValue - 1);
+      this.actualizarPrecio();
     }
   }
 
   incrementLanguages() {
-    const currentValue = this.counterForm.get('counterLanguages')?.value || 0;
-    if (currentValue < 10) {  // Check the maximum value
+    const currentValue = this.counterForm.get('counterLanguages')?.value || 1;
+    if (currentValue < 10) {
       this.counterForm.get('counterLanguages')?.setValue(currentValue + 1);
+      this.actualizarPrecio();
     }
   }
 
   decrementLanguages() {
-    const currentValue = this.counterForm.get('counterLanguages')?.value || 0;
+    const currentValue = this.counterForm.get('counterLanguages')?.value || 1;
     if (currentValue > 0) {
       this.counterForm.get('counterLanguages')?.setValue(currentValue - 1);
+      this.actualizarPrecio();
     }
   }
 
-  openModalPages (){
-    const dialogRef = this.dialog.open(ModalpagesComponent , {
+  actualizarPrecio() {
+    const totalPaginas = this.counterForm.get('counterPages')?.value || 1;
+    const totalLenguajes = this.counterForm.get('counterLanguages')?.value || 1;
+    this.budgetService.actualizarPrecio(totalPaginas - 1, totalLenguajes - 1);
+  }
+
+
+  openModalPages() {
+    const dialogRef = this.dialog.open(ModalpagesComponent, {
       width: '400px', 
       height: '300px' 
     });
 
-    dialogRef.afterClosed().subscribe
+    dialogRef.afterClosed().subscribe();
   }
 
-  openModalLanguages (){
-    const dialogRef = this.dialog.open(ModalLanguagesComponent , {
+  openModalLanguages() {
+    const dialogRef = this.dialog.open(ModalLanguagesComponent, {
       width: '400px', 
       height: '300px' 
     });
 
-    dialogRef.afterClosed().subscribe
+    dialogRef.afterClosed().subscribe();
   }
-}   
+}
