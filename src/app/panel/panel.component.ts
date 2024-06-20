@@ -13,31 +13,33 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule, MatDialogModule]
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule, MatDialogModule, ]
 })
 export class CounterPanelComponent {
   counterForm: FormGroup;
- 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public budgetService: BudgetService) {
     this.counterForm = this.fb.group({
-      counterPages: [1, [Validators.min(0), Validators.max(10)]],
-      counterLanguages: [1, [Validators.min(0), Validators.max(10)]],
+      counterPages: [1, Validators.min(1)], 
+      counterLanguages: [1, Validators.min(1)], 
     });
+
+    ///  actualizar precio al iniciar
+    this.counterForm.valueChanges.subscribe(() => this.actualizarPrecio());
     this.actualizarPrecio();
   }
 
   incrementPages() {
     const currentValue = this.counterForm.get('counterPages')?.value || 1;
-    if (currentValue < 10) {  
+    
       this.counterForm.get('counterPages')?.setValue(currentValue + 1);
       this.actualizarPrecio();
-    }
+    
   }
 
   decrementPages() {
     const currentValue = this.counterForm.get('counterPages')?.value || 1;
-    if (currentValue > 0) {
+    if (currentValue > 1) {
       this.counterForm.get('counterPages')?.setValue(currentValue - 1);
       this.actualizarPrecio();
     }
@@ -45,15 +47,15 @@ export class CounterPanelComponent {
 
   incrementLanguages() {
     const currentValue = this.counterForm.get('counterLanguages')?.value || 1;
-    if (currentValue < 10) {
+    
       this.counterForm.get('counterLanguages')?.setValue(currentValue + 1);
       this.actualizarPrecio();
-    }
+    
   }
 
   decrementLanguages() {
     const currentValue = this.counterForm.get('counterLanguages')?.value || 1;
-    if (currentValue > 0) {
+    if (currentValue > 1) {
       this.counterForm.get('counterLanguages')?.setValue(currentValue - 1);
       this.actualizarPrecio();
     }
@@ -62,14 +64,20 @@ export class CounterPanelComponent {
   actualizarPrecio() {
     const totalPaginas = this.counterForm.get('counterPages')?.value || 1;
     const totalLenguajes = this.counterForm.get('counterLanguages')?.value || 1;
-    this.budgetService.actualizarPrecio(totalPaginas - 1, totalLenguajes - 1);
+    this.budgetService.actualizarPrecio(totalPaginas, totalLenguajes);
+  }
+
+  resetCounters() {
+    this.counterForm.get('counterPages')?.setValue(1);
+    this.counterForm.get('counterLanguages')?.setValue(1);
+    this.actualizarPrecio();
   }
 
 
   openModalPages() {
     const dialogRef = this.dialog.open(ModalpagesComponent, {
-      width: '400px', 
-      height: '300px' 
+      width: '400px',
+      height: '300px'
     });
 
     dialogRef.afterClosed().subscribe();
@@ -77,8 +85,8 @@ export class CounterPanelComponent {
 
   openModalLanguages() {
     const dialogRef = this.dialog.open(ModalLanguagesComponent, {
-      width: '400px', 
-      height: '300px' 
+      width: '400px',
+      height: '300px'
     });
 
     dialogRef.afterClosed().subscribe();

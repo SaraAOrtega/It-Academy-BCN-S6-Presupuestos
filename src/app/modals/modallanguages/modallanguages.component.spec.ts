@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModallanguagesComponent } from './modallanguages.component';
+import { ModalLanguagesComponent } from './modallanguages.component';
 
 describe('ModallanguagesComponent', () => {
-  let component: ModallanguagesComponent;
-  let fixture: ComponentFixture<ModallanguagesComponent>;
+  let component: ModalLanguagesComponent;
+  let fixture: ComponentFixture<ModalLanguagesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModallanguagesComponent]
+      imports: [ModalLanguagesComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ModallanguagesComponent);
+    fixture = TestBed.createComponent(ModalLanguagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,7 +5,7 @@
     align-items: center;
     height: 100%;
     text-align: center; 
-    width: 100%; /* Para asegurarse de que el contenido tome el ancho completo del modal */
+    width: 100%; 
     padding: 10px;
   }
 

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { CounterPanelComponent } from './../panel/panel.component';
-import { BudgetService } from './../servicio/budget.service';  // Importa el servicio
+import { BudgetService } from './../servicio/budget.service'; 
+
 
 @Component({
   selector: 'app-budget-list',
@@ -15,8 +16,11 @@ import { BudgetService } from './../servicio/budget.service';  // Importa el ser
   styleUrls: ['./budget-list.component.css']
 })
 export class BudgetListComponent implements OnInit {
+
+  @ViewChild(CounterPanelComponent) counterPanel!: CounterPanelComponent
   servicios: FormGroup;
   total: number = 0;
+  precioAdicional: number = 0; 
 
   constructor(private fb: FormBuilder, private budgetService: BudgetService) {
     this.servicios = this.fb.group({
@@ -28,10 +32,15 @@ export class BudgetListComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicios.valueChanges.subscribe(values => {
-      this.calculateTotal(values);
+      this.calculateTotal(values, this.precioAdicional);
+      
+      if (!values.web) {
+        this.counterPanel.resetCounters();
+      }
     });
 
     this.budgetService.precioTotal$.subscribe(precioTotal => {
+      this.precioAdicional = precioTotal;
       this.calculateTotal(this.servicios.value, precioTotal);
     });
   }

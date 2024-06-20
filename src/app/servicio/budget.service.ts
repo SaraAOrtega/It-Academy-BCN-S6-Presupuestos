@@ -5,19 +5,13 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class BudgetService {
-  private precioPor = 30;
-  private precioTotalSubject = new BehaviorSubject<number>(0);
-
-  precioTotal$ = this.precioTotalSubject.asObservable();
+  private precioTotalSource = new BehaviorSubject<number>(0);
+  precioTotal$ = this.precioTotalSource.asObservable();
 
   constructor() { }
 
-  calcularPrecio(paginas: number, lenguajes: number): number {
-    return (paginas + lenguajes) * this.precioPor;
-  }
-
-  actualizarPrecio(paginas: number, lenguajes: number): void {
-    const precioTotal = this.calcularPrecio(paginas, lenguajes);
-    this.precioTotalSubject.next(precioTotal);
+  actualizarPrecio(additionalPages: number, additionalLanguages: number): void {
+    const additionalCost = (additionalPages -1 + additionalLanguages -1 ) * 30;
+    this.precioTotalSource.next(additionalCost);
   }
 }
